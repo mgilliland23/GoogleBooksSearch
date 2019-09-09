@@ -5,16 +5,18 @@ import Navbar from "./Components/Navbar";
 import Wrapper from "./Components/Wrapper";
 import Saved from "./Components/Saved";
 import Banner from "./Components/Banner";
+import Search from "./Components/Search";
 
 class App extends Component {
   render() {
     return (
-      <Navbar>
+      <div>
+        <Navbar />
         <Wrapper>
           <Banner />
-          <Saved />
+          <Search />
         </Wrapper>
-      </Navbar>
+      </div>
     );
   }
 }

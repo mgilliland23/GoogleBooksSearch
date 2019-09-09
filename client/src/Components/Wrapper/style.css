@@ -1,0 +1,8 @@
+.Wrapper {
+  padding: 20px 20px;
+  margin: 0 auto;
+  background: #eceff1;
+  min-height: 100vh;
+  justify-content: center;
+  overflow: auto;
+}
