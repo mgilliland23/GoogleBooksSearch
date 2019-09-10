@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -18,12 +19,30 @@ function Navbar() {
       </button>
       <div className="collapse navbar-collapse" id="navbarLinks">
         <div className="navbar-nav">
-          <a className="nav-item nav-link active" href="#">
-            Search <span className="sr-only">(current)</span>
-          </a>
-          <a className="nav-item nav-link" href="#">
-            Saved
-          </a>
+          <li className="nav-item">
+            <Link
+              to="/"
+              className={
+                window.location.pathname === "/"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              Search
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              to="/saved"
+              className={
+                window.location.pathname === "/saved"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              Saved
+            </Link>
+          </li>
         </div>
       </div>
     </nav>

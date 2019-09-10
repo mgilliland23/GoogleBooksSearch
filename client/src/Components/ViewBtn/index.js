@@ -3,17 +3,17 @@ import "./style.css";
 
 // The ...props means, spread all of the passed props onto this element
 // That way we don't have to define them all individually
-function AddBtn(props) {
+function ViewBtn(props) {
   return (
-    <button
+    <a
+      href={props.link}
       className="view-btn btn btn-primary"
       {...props}
-      role="button"
       tabIndex="0"
     >
       View
-    </button>
+    </a>
   );
 }
 
-export default AddBtn;
+export default ViewBtn;

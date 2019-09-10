@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-
+const routes = require("./routes");
 const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3001;
@@ -24,9 +24,9 @@ app.get("*", (req, res) => {
 });
 
 // Connect to the Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist"
-);
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/googleBooks";
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);

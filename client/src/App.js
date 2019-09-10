@@ -1,22 +1,24 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
-import Navbar from "./Components/Navbar";
-import Wrapper from "./Components/Wrapper";
-import Saved from "./Components/Saved";
-import Banner from "./Components/Banner";
-import Search from "./Components/Search";
+import Navbar from "./components/Navbar";
+import Wrapper from "./components/Wrapper";
+import Banner from "./components/Banner";
+import Search from "./screens/Search";
+import Saved from "./screens/Saved";
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <Navbar />
-        <Wrapper>
-          <Banner />
-          <Search />
-        </Wrapper>
-      </div>
+      <Router>
+        <div>
+          <Navbar />
+          <Wrapper>
+            <Route exact path="/" component={Search} />
+            <Route exact path="/saved" component={Saved} />
+          </Wrapper>
+        </div>
+      </Router>
     );
   }
 }
