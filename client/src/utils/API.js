@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const BASEURL = "https://www.omdbapi.com/?t=";
-const APIKEY = "&apikey=trilogy";
+const BASEURL = "https://www.googleapis.com/books/v1/volumes?q=";
+const APIKEY = "AIzaSyB2SE0jF8YLo-KY5nYxlmfJssSzhdjDNXA";
 
 export default {
-  searchBooks: function(req, res) {
-    return axios.get(BASEURL + req.query + APIKEY);
+  searchBooks: function(query) {
+    return axios.get(BASEURL + query + "&key=" + APIKEY);
   },
   // Gets all books
   getBooks: function() {

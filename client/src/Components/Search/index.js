@@ -1,24 +1,36 @@
 import React, { Component } from "react";
 //import Jumbotron from "./Jumbotron";
-import API from "../../utils/API";
 //import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../List";
-import { Input, FormBtn } from "../Form";
+import SearchForm from "../SearchForm";
+import AddBtn from "../AddBtn";
+import ViewBtn from "../ViewBtn";
+
+import API from "../../utils/API";
 
 class Search extends Component {
   state = {
+    result: {},
     books: [],
     search: ""
   };
 
+  // When this component mounts, search for the movie "The Matrix"
   componentDidMount() {
-    //this.loadBooks();
+    //this.searchMovies("The Matrix");
   }
 
-  searchBooks = title => {
-    API.searchBooks(title)
-      .then(res => this.setState({ books: res.data }))
+  searchBooks = query => {
+    API.searchBooks(query)
+      .then(res => this.displayBooks(res.data.items))
       .catch(err => console.log(err));
+  };
+
+  displayBooks = books => {
+    console.log(books);
+    this.setState({
+      books: books
+    });
   };
 
   handleInputChange = event => {
@@ -29,7 +41,7 @@ class Search extends Component {
     });
   };
 
-  // When the form is submitted, search the OMDB API for the value of `this.state.search`
+  // When the form is submitted, search the Google Books API for the value of `this.state.search`
   handleFormSubmit = event => {
     event.preventDefault();
     this.searchBooks(this.state.search);
@@ -37,37 +49,38 @@ class Search extends Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-md-6">
-          <form>
-            <Input
-              name="title"
-              placeholder="Title (required)"
-              value={this.state.search}
-              handleInputChange={this.handleInputChange}
-            />
-            <FormBtn handleFormSubmit={this.handleFormSubmit}>Search</FormBtn>
-          </form>
-        </div>
-        <div className="col-md-6">
-          <div>
-            {this.state.books.length ? (
-              <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <a href={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </a>
-                    {/* <DeleteBtn /> */}
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </div>
+      <div>
+        <SearchForm
+          value={this.state.search}
+          handleInputChange={this.handleInputChange}
+          handleFormSubmit={this.handleFormSubmit}
+        />
+        <div>
+          {this.state.books.length ? (
+            <List>
+              {this.state.books.map(book => (
+                <ListItem key={book.id}>
+                  <div className="book-container">
+                    <img src={book.volumeInfo.imageLinks.smallThumbnail} />
+                    <h5>
+                      {book.volumeInfo.title}{" "}
+                      <span id="author">by {book.volumeInfo.authors}</span>
+                    </h5>
+                    <p id="description">{book.volumeInfo.description}</p>
+                    <AddBtn
+                      image={book.volumeInfo.imageLinks.smallThumbnail}
+                      title={book.volumeInfo.title}
+                      authors={book.volumeInfo.authors}
+                      description={book.volumeInfo.description}
+                    />
+                    <ViewBtn />
+                  </div>
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <h3>No Results to Display</h3>
+          )}
         </div>
       </div>
     );
